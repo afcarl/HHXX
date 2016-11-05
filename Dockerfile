@@ -15,4 +15,4 @@ RUN tar xvf julia-0.5.0-linux-x86_64.tar.gz -C $HOME/julia --strip-components=1
 ENV PATH $PATH:$HOME/julia/bin
 
 # Install Julia kernel
-RUN julia -e 'Pkg.add("IJulia")'
+RUN julia -e 'Pkg.init();Pkg.update();Pkg.add("IJulia")'
