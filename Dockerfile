@@ -1,9 +1,9 @@
-FROM ubuntu:16.04
+FROM andrewosh/binder-base
 
 USER root
 
 # Add Julia dependencies
-RUN apt-get update && apt-get install -y wget libzmq3-dev && apt-get clean
+RUN apt-get update && apt-get install -y wget libzmq3-dev cmake libmpich-dev mpich && apt-get clean
 
 USER main
 
@@ -13,4 +13,4 @@ RUN tar xf julia-0.5.0-linux-x86_64.tar.gz -C $HOME/julia --strip-components=1
 ENV PATH $PATH:$HOME/julia/bin
 
 # Install Julia kernel
-RUN julia -e 'Pkg.init();Pkg.update();Pkg.add("IJulia")'
+RUN julia -e 'Pkg.init();Pkg.update();Pkg.add("IJulia");Pkg.add("Elemental");Pkg.add("MPI");Pkg.clone("https://github.com/andreasnoack/TSVD.jl")'
